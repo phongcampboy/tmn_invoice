@@ -338,7 +338,7 @@ export class PaybillPage {
 
           connect.unsubscribe();
           this.api.confirmAlert('กรุณาฉีกต้นฉบับออกจากเครื่องพิมพ์ ก่อนพิมพ์สำเนา', () => {
-            // this.printCopy();
+             this.printCopy(this.item.IsPay);
           });
         }, errx => {
           this.api.errorAlert(errx);
@@ -359,16 +359,21 @@ export class PaybillPage {
     return res;
   }
 
-  printOnlyCopy(pay) {
+  printOnlyCopy() {
 
-    this.pay = pay;
+    //this.pay = pay;
+
+    if (this.item && this.item.IsPay === -1) {
+      this.printCopy("1");
+      return;
+    }
     //console.log('เลือก ', this.pay);
-    this.printCopy(this.pay);
+    //this.printCopy(this.pay);
 
   }
 
   printCopy(type) {
-    console.log('type ส่งเข้ามา', type);
+
     let printData = null;
 
     this.keepName = this.getKeeperName();
@@ -379,24 +384,23 @@ export class PaybillPage {
       return;
 
     } else {
-      if (type = '0') {
+      if (type === '0') {
 
-        console.log("type 0")
-         if (this.item.BranchTMN == "0" || this.item.BranchTMN == "2") {
+        if (this.item.BranchTMN == "0" || this.item.BranchTMN == "2") {
 
-          //printData = this.printDataInvoice(true);
-          console.log("สาขาสำนักงานใหญ่", this.item.BranchTMN);
+          printData = this.printDataInvoice(true);
+          // console.log("สาขาสำนักงานใหญ่",this.item.BranchTMN);
 
-        } else if (this.item.BranchTMN == "-1") {
+        } else if (this.item.BranchTMN == "1") {
 
-          //printData = this.printInvoicePattaya(true);
-          console.log("สาขาพัทยา", this.item.BranchTMN);
-        } 
-      } else if (type = '-1') {
-
+          printData = this.printInvoicePattaya(true);
+          //console.log("สาขาพัทยา",this.item.BranchTMN)
+          ;
+        }
+      } else if (type === '1') {
         printData = this.printDataReceipt(true);
-        console.log("type -1")
       }
+      console.log(type);
 
       let connect = this.bts.connect(this.device).subscribe(data => {
 
@@ -419,24 +423,10 @@ export class PaybillPage {
 
     }
 
-    let connect = this.bts.connect(this.device).subscribe(data => {
-
-      this.bts.clear().then(() => {
-        this.bts.write(printData).then(dataz => {
-          this.ToastMessage("การพิมพ์สำเร็จ");
-
-          this.typeBill = null;
-          connect.unsubscribe();
-        }, errx => {
-          this.api.errorAlert(errx);
-        });
-      });
-
-    }, err => {
-
-      this.ToastMessage("ไม่มีการเชื่อมต่ออุปกรณ์ Bluetooth");
-
-    });
+    // if (!type || !printData) {
+    //   this.api.errorAlert("กรุณาเลือกประเภทบิล และ พิมพ์ต้นฉบับก่อน ปุ่มนี้สำหรับในกรณีที่หลังจากพิมพ์ต้นฉบับแล้วไม่มีสำเนาออกมา");
+    //   return false;
+    // }
 
   }
 
