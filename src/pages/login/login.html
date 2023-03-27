@@ -1,0 +1,33 @@
+<ion-header *ngIf="!auth.isAuthenticated()">
+
+    <ion-navbar hideBackButton>
+        <ion-title>Login</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content text-center *ngIf="auth.isAuthenticated()">
+    <ion-grid style="height: 100%">
+        <ion-row justify-content-center align-items-center style="height: 100%">
+          กำลังดำเนินการ...
+        </ion-row>
+    </ion-grid>
+</ion-content>
+
+<ion-content padding *ngIf="!auth.isAuthenticated()">
+
+    <ion-item>
+        <ion-label color="primary" stacked>ชื่อผู้ใช้</ion-label>
+        <ion-input type="text" placeholder="User" [(ngModel)]="username" input-login></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label color="primary" stacked>รหัสผ่าน</ion-label>
+        <ion-input type="password" placeholder="Password" [(ngModel)]="password" input-login></ion-input>
+    </ion-item>
+
+    <div button-area>
+        <button ion-button large full (click)="login()">Login</button>
+    </div>
+
+</ion-content>

@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-navbar hideBackButton>
+    <ion-title>
+      ค้นหา
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="menuOpen()">
+        <ion-icon name="ios-menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label stacked label-form color="primary">เลือกสาขา</ion-label>
+    <ion-select [(ngModel)]="formBranch">
+      <ion-option value="0">สำนักงานใหญ่</ion-option>
+      <ion-option value="1">สาขาพัทยา</ion-option>
+      <ion-option value="2">สาขาโรงโป๊ะ</ion-option>
+      <!-- <ion-option value="3">สาขาสำหรับทดสอบ</ion-option> -->
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked label-form color="primary">ค้นจาก</ion-label>
+    <ion-select [(ngModel)]="formField">
+      <ion-option value="MemberID">รหัสสมาชิก</ion-option>
+      <ion-option value="fullname">ชื่อ</ion-option>
+      <ion-option value="Tel1">โทรศัพท์</ion-option>
+      <ion-option value="StreetNo">บ้านเลขที่</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked label-form color="primary">คำค้น</ion-label>
+    <ion-input type="text" [(ngModel)]="formValue"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <button ion-button large full (click)="searchData()"> <ion-icon name="ios-search"></ion-icon>ค้นหา</button>
+  </ion-item>
+
+  <!-- <ion-item>
+    <button ion-button large full (click)="printPage()">ไปหน้าพิมพ์เลย</button>
+  </ion-item> -->
+
+  <div *ngIf="resultList && resultList.length > 0">
+    <ion-card *ngFor="let item of resultList" (click)="viewDetail(item)">
+      <ion-card-header>
+        <ion-badge *ngIf="item.IsPay == -1" color="secondary">ชำระค่าบริการ</ion-badge>
+        <ion-badge *ngIf="item.IsPay == 0" color="danger">ค้างชำระค่าบริการ {{ api.reversedDate(item.LastPay) }}</ion-badge>  
+      </ion-card-header>
+      <ion-card-content>
+        <div class="customer-name">{{ item.FirstName + " " + item.LastName}}</div>
+
+        <b>รหัสสมาชิก : </b> {{ item.MemberID }}
+        <br />
+        <b>ที่อยู่ : </b> {{ renderAddress(item) }}
+        <br/>
+        <b>รอบชำระค่าบริการ : </b> {{ api.reversedDate(item.LastPay) }}
+        <br/>
+        <b>ประเภทสมาชิก : </b> {{ item.DescriptionRate }}
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>

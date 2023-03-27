@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Print</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label stacked label-form color="primary">เลือกเครื่องพิมพ์</ion-label>
+    <ion-select [(ngModel)]="device" (ionChange)="setPrinter()">
+      <ion-option *ngFor="let item of deviceList" value="{{ item.address }}"
+        >{{ item.name }}</ion-option
+      >
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked label-form color="primary"
+      >ผู้ออกใบแจ้งหนี้/ใบรับเงินชั่วคราว</ion-label
+    >
+    <ion-select [(ngModel)]="Keeper" (ionChange)="changeKeeper()">
+      <ion-option *ngFor="let item of KeeperList" value="{{ item.KeeperID }}"
+        >{{ item.KeeperName }}</ion-option
+      >
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="item && item.IsPay == 0">
+    <button
+      ion-button
+      large
+      item-start
+      color="danger"
+      (click)="clkic_typepay()"
+    >
+      <ion-icon name="print"></ion-icon>จ่ายบิล
+    </button>
+
+    <button ion-button large item-end (click)="print_bill()">
+      <ion-icon name="print"></ion-icon>วางบิล
+    </button>
+  </ion-item>
+
+  <ion-item *ngIf="item && item.IsPay == 0">
+    <div class="center-button">
+      <button ion-button large item-end (click)="printOnlyCopy(item.IsPay)">
+        <ion-icon name="print"></ion-icon>พิมพ์สำเนา
+      </button>
+    </div>
+  </ion-item>
+
+  <ion-item *ngIf="item && item.IsPay == -1">
+    <div class="center-button">
+      <button ion-button large (click)="printOnlyCopy(item.IsPay)" full>
+        <ion-icon name="print"></ion-icon>พิมพ์สำเนา
+      </button>
+    </div>
+    <button ion-button type="button" large color="secondary" full>
+      <ion-icon name="checkmark"></ion-icon>ชำระค่าบริการเรียบร้อยแล้ว
+    </button>
+  </ion-item>
+
+  <ion-card *ngIf="item">
+    <ion-card-header>
+      <b>รายละเอียดสมาชิก</b>
+      <ion-badge *ngIf="item.IsPay == 0" color="danger"
+        >ยังไม่ชำระค่าบริการ</ion-badge
+      >
+    </ion-card-header>
+    <ion-card-content>
+      {{ "บริษัท ทิพย์มณี มีเดีย เน็ตเวิร์ค จำกัด ("+ getBranchName()+")" }}
+      <br />
+      <b>วันที่ : </b> {{ getDate() }}
+      <br />
+      <b>ID : </b> {{ item.MemberID }}
+      <br />
+      <b>ชื่อ : </b>{{ item.FirstName + " " + item.LastName }}
+      <br />
+      <b>ที่อยู่ : </b> {{ renderAddress(item) }}
+      <br />
+      <b>ประเภทสมาชิก : </b> {{ item.DescriptionRate }}
+      <br />
+      <b>รอบใช้บริการ : </b>{{ api.reversedDate(item.LastPay) + " " +
+      api.reversedDate(item.NextPay) }}
+      <br />
+      <b>ยอดชำระ : </b>{{ api.FormatNumber(item.Total) }}
+      <br />
+      <b>โทรศัพท์ : </b>{{ item.Tel1 }}
+      <br />
+    </ion-card-content>
+  </ion-card>
+</ion-content>

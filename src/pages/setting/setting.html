@@ -1,0 +1,86 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>ตั้งค่า</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-item>
+        <ion-label stacked label-form color="primary">บลูทูธ</ion-label>
+        <ion-toggle checked="false" [(ngModel)]="bluetoothEnable" (ionChange)="openBluetooth()"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+        <ion-label stacked label-form color="primary">เลือกเครื่องพิมพ์</ion-label>
+        <ion-select [(ngModel)]="device" (ionChange)="setPrinter()">
+          <ion-option *ngFor="let item of deviceList" value="{{ item.address }}">{{ item.name }}</ion-option>
+        </ion-select>
+    </ion-item>
+
+    <button ion-button large full (click)="print()">
+          <ion-icon name="print"></ion-icon>
+          ทดสอบพิมพ์
+    </button>
+
+    <ion-list radio-group  [(ngModel)]="defaultBranch" [ngModelOptions]="{standalone : true}">
+      
+        <ion-list-header>
+          ตั้งค่าเริ่มต้นของสาขา
+        </ion-list-header>
+
+        <ion-item>
+          <ion-label>สำนักงานใหญ่</ion-label>
+          <ion-radio value="0" (ionSelect)="settingBranch('0', 'สำนักงานใหญ่')"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>สาขาพัทยา</ion-label>
+          <ion-radio value="1" (ionSelect)="settingBranch('1', 'สาขาพัทยา')"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>สาขาโรงโป๊ะ</ion-label>
+          <ion-radio value="2" (ionSelect)="settingBranch('2', 'สาขาโรงโป๊ะ')"></ion-radio>
+        </ion-item>
+   
+    </ion-list>
+
+
+    <ion-list radio-group  [(ngModel)]="defaultSearch" [ngModelOptions]="{standalone : true}" >
+      
+      <ion-list-header>
+        ตั้งค่าเริ่มต้นการค้นหา
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label>รหัสสมาชิก</ion-label>
+        <ion-radio value="MemberID" (ionSelect)="settingSearch('MemberID', 'รหัสสมาชิก')" ></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>ชื่อ</ion-label>
+        <ion-radio value="fullname" (ionSelect)="settingSearch('fullname', 'ชื่อ')" ></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>โทรศัพท์</ion-label>
+        <ion-radio value="Tel1" (ionSelect)="settingSearch('Tel1', 'โทรศัพท์')" ></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>บ้านเลขที่</ion-label>
+        <ion-radio value="StreetNo" (ionSelect)="settingSearch('StreetNo', 'บ้านเลขที่')" ></ion-radio>
+      </ion-item>
+ 
+  </ion-list>
+
+  <ion-list-header>
+    <ion-label>Version 5</ion-label>
+  </ion-list-header>
+
+</ion-content>
