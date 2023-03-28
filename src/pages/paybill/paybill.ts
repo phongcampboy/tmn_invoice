@@ -338,7 +338,7 @@ export class PaybillPage {
 
           connect.unsubscribe();
           this.api.confirmAlert('กรุณาฉีกต้นฉบับออกจากเครื่องพิมพ์ ก่อนพิมพ์สำเนา', () => {
-             this.printCopy(this.item.IsPay);
+            this.printCopy(this.item.IsPay);
           });
         }, errx => {
           this.api.errorAlert(errx);
@@ -367,6 +367,7 @@ export class PaybillPage {
       this.printCopy("1");
       return;
     }
+    this.printCopy("0");
     //console.log('เลือก ', this.pay);
     //this.printCopy(this.pay);
 
@@ -389,18 +390,19 @@ export class PaybillPage {
         if (this.item.BranchTMN == "0" || this.item.BranchTMN == "2") {
 
           printData = this.printDataInvoice(true);
-          // console.log("สาขาสำนักงานใหญ่",this.item.BranchTMN);
+          //console.log("สาขาสำนักงานใหญ่",this.item.BranchTMN);
 
         } else if (this.item.BranchTMN == "1") {
 
           printData = this.printInvoicePattaya(true);
-          //console.log("สาขาพัทยา",this.item.BranchTMN)
+          // console.log("สาขาพัทยา",this.item.BranchTMN)
           ;
         }
       } else if (type === '1') {
         printData = this.printDataReceipt(true);
+        // console.log("Type=",type);
       }
-      console.log(type);
+      console.log('type volume', type);
 
       let connect = this.bts.connect(this.device).subscribe(data => {
 
