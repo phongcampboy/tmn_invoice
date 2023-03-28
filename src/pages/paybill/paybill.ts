@@ -304,32 +304,42 @@ export class PaybillPage {
 
     let printData = null;
 
+    if (this.item && this.item.IsPay === 0) {
 
-    if (this.item.BranchTMN == "1") {
+      if (this.item.BranchTMN == "1") {
 
-      printData = this.printInvoicePattaya();
-      this.ToastMessage('เลือกพิพม์ใบแจ้งราคา');
-      let send = await this.notPay();
-      if (!send) {
-        this.api.errorAlert('ไม่สามารถเชื่อมต่ออินเตอร์เน็ตได้');
-        return false;
+        printData = this.printInvoicePattaya();
+        this.ToastMessage('เลือกพิพม์ใบแจ้งราคา');
+        let send = await this.notPay();
+        if (!send) {
+          this.api.errorAlert('ไม่สามารถเชื่อมต่ออินเตอร์เน็ตได้');
+          return false;
+        }
+        console.log('สาขาพัทยา');
+
+      } else {
+
+        printData = this.printDataInvoice();
+        this.ToastMessage('เลือกพิพม์ใบแจ้งราคา');
+        let send = await this.notPay();
+        if (!send) {
+          this.api.errorAlert('ไม่สามารถเชื่อมต่ออินเตอร์เน็ตได้');
+          return false;
+        }
+        console.log('สำนักงานใหญ่');
+
       }
-      console.log('สาขาพัทยา');
-
     } else {
 
-      printData = this.printDataInvoice();
-      this.ToastMessage('เลือกพิพม์ใบแจ้งราคา');
-      let send = await this.notPay();
+      console.log('เลือกพิพม์ใบเสร็จรับเงิน');
+      printData = this.printDataReceipt();
+      this.ToastMessage('เลือกพิพม์ใบเสร็จรับเงิน');
+      let send = await this.isPay();
       if (!send) {
         this.api.errorAlert('ไม่สามารถเชื่อมต่ออินเตอร์เน็ตได้');
         return false;
       }
-      console.log('สำนักงานใหญ่');
-
     }
-
-
 
     let connect = this.bts.connect(this.device).subscribe(data => {
 
@@ -338,7 +348,8 @@ export class PaybillPage {
 
           connect.unsubscribe();
           this.api.confirmAlert('กรุณาฉีกต้นฉบับออกจากเครื่องพิมพ์ ก่อนพิมพ์สำเนา', () => {
-            this.printCopy(this.item.IsPay);
+            // this.printCopy(this.item.IsPay);
+            this.printOnlyCopy();
           });
         }, errx => {
           this.api.errorAlert(errx);
@@ -828,7 +839,7 @@ export class PaybillPage {
 
           connect.unsubscribe();
           this.api.confirmAlert('กรุณาฉีกต้นฉบับออกจากเครื่องพิมพ์ ก่อนพิมพ์สำเนา', () => {
-            this.printCopyPay();
+            this.printOnlyCopy();
           });
         }, errx => {
           this.api.errorAlert(errx);
@@ -841,29 +852,29 @@ export class PaybillPage {
 
     });
   }
-  printCopyPay() {
-    let printDatapay = null;
-    printDatapay = this.printDataReceipt(true);
-
-    let connect = this.bts.connect(this.device).subscribe(data => {
-
-      this.bts.clear().then(() => {
-        this.bts.write(printDatapay).then(dataz => {
-          this.ToastMessage("การพิมพ์สำเร็จ");
-
-          this.typeBill = null;
-          connect.unsubscribe();
-        }, errx => {
-          this.api.errorAlert(errx);
+  /*   printCopyPay() {
+      let printDatapay = null;
+      printDatapay = this.printDataReceipt(true);
+  
+      let connect = this.bts.connect(this.device).subscribe(data => {
+  
+        this.bts.clear().then(() => {
+          this.bts.write(printDatapay).then(dataz => {
+            this.ToastMessage("การพิมพ์สำเร็จ");
+  
+            this.typeBill = null;
+            connect.unsubscribe();
+          }, errx => {
+            this.api.errorAlert(errx);
+          });
         });
-      });
-
-    }, err => {
-
-      this.ToastMessage("ไม่มีการเชื่อมต่ออุปกรณ์ Bluetooth");
-
-    })
-  }
+  
+      }, err => {
+  
+        this.ToastMessage("ไม่มีการเชื่อมต่ออุปกรณ์ Bluetooth");
+  
+      })
+    } */
   async clkic_typepay() {
     this.changepay((type) => {
 
@@ -926,6 +937,7 @@ export class PaybillPage {
     console.log(res);
     return res;
   }
+
   //ปริ้นจ่ายเงิน
   printDataReceipt(copy = false) {
 
