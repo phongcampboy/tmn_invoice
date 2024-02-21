@@ -891,9 +891,14 @@ export class PaybillPage {
 
         this.KeeperName = '99996';
 
+      } else if (this.typePay == 'เช็ค') {
+
+        this.KeeperName = '99995';
+
       }
+
       this.pay_bill();
-      //console.log('TypePay =', this.typePay);
+      console.log('TypePay =', this.typePay);
     });
 
   }
@@ -918,6 +923,12 @@ export class PaybillPage {
       type: 'radio',
       label: 'สแกนจ่าย',
       value: 'สแกนจ่าย',
+      checked: false
+    });
+    alert.addInput({
+      type: 'radio',
+      label: 'เช็ค',
+      value: 'เช็ค',
       checked: false
     });
 
