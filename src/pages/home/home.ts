@@ -18,6 +18,17 @@ export class HomePage {
 
   lastBack :any;
 
+    //SMS
+    url : any = 'http://smsapi.cat4sms.com/cat4api/api.php';
+    method : any = 'send';
+    username : any = 'tmncable';
+    password : any = 'cabletmn';
+    sender : any = 'TMN Cable';
+    sendername :any = 'TMN Cable';
+    destination :any = '0861505398';
+    message : any = 'ขอบคุณที่ชำระค่าบริการ Cable TV ติดต่อ โทร 087-138-8866';
+
+
   constructor(
     public navCtrl: NavController,
     public api : ApiProvider,
@@ -102,6 +113,23 @@ export class HomePage {
     toast.present();
   }
 
+  async send_SMS(){
+
+    let formData = new FormData();
+    formData.append('method', this.method);
+    formData.append("username", this.username);
+    formData.append("password", this.password);
+    formData.append("sender", this.sender);
+    formData.append("sendername", this.sendername);
+    formData.append("destination", this.destination);
+    formData.append("message", this.message);
+    
+    let data =  await this.api.Post('กำลังค้นหาข้อมูล...',this.url, formData);
+    if(data){
+      this.resultList = data;
+      console.log('Data=',data);
+    }
+  }
   async searchData(){
 
     if(!this.formValue){

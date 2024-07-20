@@ -1,5 +1,6 @@
 <ion-header>
-  <ion-navbar hideBackButton>
+  <ion-navbar color="primary">
+  <!-- <ion-navbar hideBackButton> -->
     <ion-title>
       ค้นหา
     </ion-title>
@@ -41,10 +42,10 @@
     <button ion-button large full (click)="searchData()"> <ion-icon name="ios-search"></ion-icon>ค้นหา</button>
   </ion-item>
 
-  <!-- <ion-item>
-    <button ion-button large full (click)="printPage()">ไปหน้าพิมพ์เลย</button>
-  </ion-item> -->
-
+<!--   <ion-item>
+    <button ion-button large full (click)="send_SMS()">Send SMS</button>
+  </ion-item>
+ -->
   <div *ngIf="resultList && resultList.length > 0">
     <ion-card *ngFor="let item of resultList" (click)="viewDetail(item)">
       <ion-card-header>
