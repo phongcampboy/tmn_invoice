@@ -351,8 +351,6 @@ export class PaybillPage {
         return false;
       }
 
-
-      
     }
 
     let connect = this.bts.connect(this.device).subscribe(data => {
@@ -364,7 +362,7 @@ export class PaybillPage {
           this.api.confirmAlert('กรุณาฉีกต้นฉบับออกจากเครื่องพิมพ์ ก่อนพิมพ์สำเนา', () => {
             // this.printCopy(this.item.IsPay);
             this.printOnlyCopy();
-            this.send_SMS();
+          
           });
         }, errx => {
           this.api.errorAlert(errx);
@@ -373,29 +371,14 @@ export class PaybillPage {
 
     }, err => {
 
+      
       this.ToastMessage("ไม่มีการเชื่อมต่ออุปกรณ์ Bluetooth");
+
 
     });
 
   }
-  //ส่ง SMS
-  async send_SMS(){
 
-    let formData = new FormData();
-    formData.append('method', this.method);
-    formData.append("username", this.username);
-    formData.append("password", this.password);
-    formData.append("sender", this.sender);
-    formData.append("sendername", this.sendername);
-    formData.append("destination", this.destination);
-    formData.append("message", this.message);
-    
-    let data =  await this.api.Post('กำลังค้นหาข้อมูล...',this.url, formData);
-    if(data){
-      this.resultList = data;
-      console.log('Data=',data);
-    }
-  }
 
   async notPay() {
     let res = await this.updateStatus("กำลังอัพเดทสถานะลูกค้ายังไม่ได้จ่ายเงิน", "0", this.billNumber['invoice']);
@@ -414,6 +397,7 @@ export class PaybillPage {
     this.printCopy("0");
     //console.log('เลือก ', this.pay);
     //this.printCopy(this.pay);
+    
 
   }
 
@@ -976,10 +960,32 @@ export class PaybillPage {
     alert.present();
   }
 
+    //ส่ง SMS
+    async send_SMS(){
+
+      let formData = new FormData();
+      formData.append('method', this.method);
+      formData.append("username", this.username);
+      formData.append("password", this.password);
+      formData.append("sender", this.sender);
+      formData.append("sendername", this.sendername);
+      formData.append("destination", this.destination);
+      formData.append("message", this.message);
+      
+      let data =  await this.api.Post('กำลังค้นหาข้อมูล...',this.url, formData);
+      if(data){
+        this.resultList = data;
+        console.log('Data=',data);
+      }
+    }
+
+    
   async isPay() {
     let res = await this.updateStatus("กำลังอัพเดทสถานะลูกค้าจ่ายเงินแล้ว...", "1", this.billNumber['receipt']);
     console.log(res);
+    this.send_SMS(); // Send SMS
     return res;
+    
   }
 
   //ปริ้นจ่ายเงิน
@@ -1063,6 +1069,7 @@ export class PaybillPage {
     let res = await this.api.Post(message, this.api.routeStatus, formData);
 
     if (res && res.success) {
+      
       this.item.IsPay = status === '1' ? -1 : 0;
       return true;
     }
