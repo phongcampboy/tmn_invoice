@@ -130,7 +130,7 @@ export class PaybillPage {
     sender : any = 'TMN Cable';
     sendername :any = 'TMN Cable';
     destination :any = '0861505398';
-    message : any = 'ขอบคุณที่ชำระค่าบริการ Cable TV ติดต่อ โทร 087-138-8866';
+    message : any = 'ขอบคุณที่ชำระค่าบริการเคเบิลทีวี ติดต่อ โทร 087-138-8866';
     resultList:any;
 
   constructor(
@@ -961,7 +961,7 @@ export class PaybillPage {
   }
 
     //ส่ง SMS
-    async send_SMS(){
+    async Send_SMS(){
 
       let formData = new FormData();
       formData.append('method', this.method);
@@ -983,7 +983,7 @@ export class PaybillPage {
   async isPay() {
     let res = await this.updateStatus("กำลังอัพเดทสถานะลูกค้าจ่ายเงินแล้ว...", "1", this.billNumber['receipt']);
     console.log(res);
-    this.send_SMS(); // Send SMS
+    this.Send_SMS(); // Send SMS
     return res;
     
   }
