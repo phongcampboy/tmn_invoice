@@ -130,8 +130,11 @@ export class PaybillPage {
     sender : any = 'TMN Cable';
     sendername :any = 'TMN Cable';
     destination :any = '0861505398';
-    message : any = 'ขอบคุณที่ชำระค่าบริการเคเบิลทีวี ติดต่อ โทร 087-138-8866';
+    //msg : any = 'ขอบคุณที่ชำระค่าบริการเคเบิลทีวี';
+    //tel :any = 'ติดต่อ โทร 087-138-8866';
     resultList:any;
+    
+  
 
   constructor(
     public navCtrl: NavController,
@@ -963,14 +966,15 @@ export class PaybillPage {
     //ส่ง SMS
     async Send_SMS(){
 
+      let data_sms = "ขอบคุณที่ชำระค่าบริการเคเบิลทีวี "+ this.item.Total +" บาท วันที่ " + this.getDate() + " เวลา " + this.getTime() +" ติดต่อ โทร.087-138-8866";
       let formData = new FormData();
       formData.append('method', this.method);
       formData.append("username", this.username);
       formData.append("password", this.password);
       formData.append("sender", this.sender);
       formData.append("sendername", this.sendername);
-      formData.append("destination", this.destination);
-      formData.append("message", this.message);
+      formData.append("destination", this.item.Tel1);
+      formData.append("message",data_sms);
       
       let data =  await this.api.Post('กำลังค้นหาข้อมูล...',this.url, formData);
       if(data){
