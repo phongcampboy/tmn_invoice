@@ -748,6 +748,25 @@ export class PaybillPage {
     //ถ้าไม่ใช่ปริ้นก็อปปี้ ถึงจะปริ้นข้อมูลด้านล่าง
     if (!copy) {
       // เพิ่มเติมชำระเงิน
+      writeData += "\n";
+      writeData += "\n";
+      writeData += "\n";
+      writeData += this.TXT_ALIGN_CT;
+      writeData += this.TEXT_FORMAT.TXT_2WIDTH;
+      writeData += "*** แจ้งยกเลิก ***\n";
+      writeData += "การชำระค่าบริการผ่าน\n";
+      writeData += "7-Eleven มีผลตั้งแต่\n";
+      writeData += "1 เมษายน นี้เป็นต้นไป\n";
+      writeData += "โดยระหว่างนี้ท่านสมาชิก\n";
+      writeData += "ยังคงสามารถทำการชำระได้\n";
+      writeData += "ถึงวันที่ 31 มีนาคม 2568\n";
+      writeData += "นี้เท่านั้น\n";
+      writeData += "\n";
+      writeData += "\n";
+      writeData += "\n";
+      writeData += "------------------------------------------------\n";
+
+
       writeData += this.TXT_ALIGN_LT;
       writeData += this.TEXT_FORMAT.TXT_2WIDTH;
       writeData += " ช่องทางชำระเงิน\n";
@@ -772,13 +791,6 @@ export class PaybillPage {
       writeData += this.BARCODE_MODE_CODE39 + this.item.BillingCode + '\x00'; */
 
       //writeData += this.TEXT_FORMAT.TXT_2WIDTH;
-      writeData += this.TXT_BOLD_ON; // Bold font ON
-        
-      writeData += "แจ้งยกเลิกการชำระค่าบริการผ่าน 7-Eleven\n";
-      writeData += " มีผลตั้งแต่ 1 เมษายน นี้เป็นต้นไป\n";
-      writeData += "โดยระหว่างนี้ท่านสมาชิกยังคงสามารถ\n";
-      writeData += "ทำการชำระได้ถึงวันที่ 31 มีนาคม 2568 นี้เท่านั้น\n";
-
 
       writeData += this.TXT_ALIGN_LT;
       writeData += this.TXT_HEADER;
@@ -816,18 +828,18 @@ export class PaybillPage {
       writeData += this.TXT_ALIGN_CT;
       writeData += this.TXT_HEADER;
       writeData += "------------------------------------------------\n";
-      writeData += this.TXT_ALIGN_LT;
+      /* writeData += this.TXT_ALIGN_LT;
       writeData += this.TXT_HEADER;
       writeData += " พื้นที่ประชาสัมพันธ์\n";
       writeData += this.TXT_NORMAL;
       writeData += " - รับติดตั้งอินเตอร์เน็ต+เคเบิลทีวี\n";
       writeData += " - รับติดตั้งกล้องวงจรปิด\n";
       writeData += " - งานวางระบบ เน็ตเวิร์ค/IT\n";
-      writeData += " - ปรึกษาฟรี โทร.038-249-734\n";
+      writeData += " - ปรึกษาฟรี โทร.038-249-734\n"; */
 
       writeData += this.TXT_ALIGN_CT;
       writeData += this.TXT_HEADER;
-      writeData += "*โปรดตรวจสอบความถูกต้องของเอกสาร*\n";
+      //writeData += "*โปรดตรวจสอบความถูกต้องของเอกสาร*\n";
       writeData += this.lineID + "\n";
       writeData += '\x1D\x28\x6B\x04\x00\x31\x41' + this.qr_model + '\x00' +        // Select the model
         '\x1D\x28\x6B\x03\x00\x31\x43' + this.qr_size +                  // Size of the model
@@ -836,14 +848,14 @@ export class PaybillPage {
         '\x1D\x28\x6B\x03\x00\x31\x51\x30' +                       // Print
         '\n';
 
-      writeData += this.TXT_ALIGN_CT;
+      /* writeData += this.TXT_ALIGN_CT;
       writeData += this.TXT_HEADER;
       writeData += "ขอขอบพระคุณท่านเป็นอย่างสูง \n";
-      writeData += "ที่เลือกใช้บริการ TMN เคเบิลทีวี พัทยา \n";
+      writeData += "ที่เลือกใช้บริการ TMN เคเบิลทีวี พัทยา \n"; */
 
     } //ปิด copy
 
-    writeData += " \n";
+
     writeData += " \n";
     writeData += " \n";
     writeData += " \n";
