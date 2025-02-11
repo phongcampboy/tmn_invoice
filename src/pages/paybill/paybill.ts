@@ -599,13 +599,22 @@ export class PaybillPage {
       writeData += "   สาขานาเกลือ\n";
       writeData += this.TXT_ALIGN_LT;
       writeData += this.TXT_HEADER;
-      writeData += " 4.ชำระที่เคาน์เตอร์เซอร์วิส \n";
+
+/*       writeData += " 4.ชำระที่เคาน์เตอร์เซอร์วิส \n";
       writeData += "   7-Eleven ชำระค่าบริการผ่าน เคเบิล ไทยบิลลิ่ง\n";
       writeData += this.TXT_ALIGN_CT;
       writeData += this.TXT_HEADER;
-      //writeData += this.promotions;
       writeData += this.item.BillingCode + "\n";
-      writeData += this.BARCODE_MODE_CODE39 + this.item.BillingCode + '\x00';
+      writeData += this.BARCODE_MODE_CODE39 + this.item.BillingCode + '\x00'; */
+
+     //writeData += this.TEXT_FORMAT.TXT_2WIDTH;
+     writeData += this.TXT_BOLD_ON; // Bold font ON
+       
+     writeData += "แจ้งยกเลิกการชำระค่าบริการผ่าน 7-Eleven\n";
+     writeData += " มีผลตั้งแต่ 1 เมษายน นี้เป็นต้นไป\n";
+     writeData += "โดยระหว่างนี้ท่านสมาชิกยังคงสามารถ\n";
+     writeData += "ทำการชำระได้ถึงวันที่ 31 มีนาคม 2568 นี้เท่านั้น\n";
+
       writeData += this.TXT_ALIGN_LT;
       writeData += this.TXT_HEADER;
       writeData += " 5.สแกน QR CODE เพื่อชำระเงิน\n";
@@ -752,15 +761,25 @@ export class PaybillPage {
       writeData += "   บ.ทิพย์มณี มีเดีย เน็ตเวิร์ค จำกัด\n";
       writeData += "   ธ.ไทยพาณิชย์ เลขที่บัญชี 969-3-00060-9\n";
       writeData += "   สาขาซอยเนินพลับหวาน\n";
-      writeData += this.TXT_ALIGN_LT;
+
+      /* writeData += this.TXT_ALIGN_LT;
       writeData += this.TXT_HEADER;
       writeData += " 4.ชำระที่เคาน์เตอร์เซอร์วิส \n";
       writeData += "   7-Eleven ชำระค่าบริการผ่าน เคเบิล ไทยบิลลิ่ง\n";
       writeData += this.TXT_ALIGN_CT;
       writeData += this.TXT_HEADER;
-      // writeData += this.promotions;
       writeData += this.item.BillingCode + "\n";
-      writeData += this.BARCODE_MODE_CODE39 + this.item.BillingCode + '\x00';
+      writeData += this.BARCODE_MODE_CODE39 + this.item.BillingCode + '\x00'; */
+
+      //writeData += this.TEXT_FORMAT.TXT_2WIDTH;
+      writeData += this.TXT_BOLD_ON; // Bold font ON
+        
+      writeData += "แจ้งยกเลิกการชำระค่าบริการผ่าน 7-Eleven\n";
+      writeData += " มีผลตั้งแต่ 1 เมษายน นี้เป็นต้นไป\n";
+      writeData += "โดยระหว่างนี้ท่านสมาชิกยังคงสามารถ\n";
+      writeData += "ทำการชำระได้ถึงวันที่ 31 มีนาคม 2568 นี้เท่านั้น\n";
+
+
       writeData += this.TXT_ALIGN_LT;
       writeData += this.TXT_HEADER;
       writeData += " 5.สแกน QR CODE เพื่อชำระเงิน\n";
